@@ -6,8 +6,8 @@ unsigned long debounceDelay = 50;
 int rate;
 float freq = 1; // hz
 int pState = "off";
-float sensorMin = 1023;
-float sensorMax = 0;
+int sensorMin = 1023;
+int sensorMax = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -49,11 +49,18 @@ int reading = digitalRead(10);
  }
  
  void calibrate(){
+  Serial.println("Calibrating...");
+  Serial.println("Cover and uncover the sensor");
    while (millis() < 10000){
    int sensor = analogRead(A0);
    sensorMin= min(sensorMin,sensor);
    sensorMax= max(sensorMax,sensor);
-   Serial.println(sensorMin);
+   Serial.print(sensorMin);
+   Serial.println(" = sensor min");
+   Serial.print(sensorMax);
+   Serial.println(" = sensor max");
+   Serial.println("Cover and uncover the sensor");
    }
+   Serial.println("Calibration Complete");
  }
  
